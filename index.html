@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>幸福策展室 × 場地租用</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 <style>
@@ -472,8 +472,8 @@
 
   .strip-photo {
     flex: 1;
-    object-fit: cover;
-    object-position: center;
+    background-size: cover;
+    background-position: center;
     opacity: 0.85;
     transition: opacity 0.4s, transform 0.6s;
     filter: brightness(0.88) saturate(0.9);
@@ -901,9 +901,9 @@
 
 <!-- ══ DECORATIVE STRIP ══ -->
 <div class="photo-strip">
-  <img class="strip-photo" src="733073_0.jpg" alt="幸福策展室空間">
-  <img class="strip-photo" src="733074_0.jpg" alt="幸福策展室空間">
-  <img class="strip-photo" src="733075_0.jpg" alt="幸福策展室空間">
+  <div class="strip-photo" style="background-image: url('733073_0.jpg');"></div>
+  <div class="strip-photo" style="background-image: url('733074_0.jpg');"></div>
+  <div class="strip-photo" style="background-image: url('733075_0.jpg');"></div>
 </div>
 
 <!-- ══ FOOTER ══ -->
