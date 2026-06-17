@@ -486,6 +486,152 @@
     z-index: 1;
   }
 
+  /* ── Dessert Table ── */
+  .dessert-section {
+    background: linear-gradient(180deg, rgba(30,20,18,0.98) 0%, rgba(20,14,12,1) 100%);
+    padding: 5rem 2rem;
+    border-top: 1px solid rgba(196,168,130,0.15);
+  }
+
+  .dessert-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .dessert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (max-width: 720px) {
+    .dessert-grid { grid-template-columns: 1fr; }
+  }
+
+  .dessert-card {
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(196,168,130,0.2);
+    background: rgba(255,255,255,0.03);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .dessert-card:hover {
+    border-color: rgba(196,168,130,0.45);
+    background: rgba(255,255,255,0.055);
+  }
+
+  .dessert-card.featured {
+    border-color: rgba(201,168,160,0.35);
+  }
+
+  .dessert-card.premium {
+    border-color: rgba(196,168,130,0.35);
+  }
+
+  .dessert-card-header {
+    padding: 1.8rem 1.8rem 1.4rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    position: relative;
+  }
+
+  .dessert-tier {
+    font-size: 0.65rem;
+    letter-spacing: 0.45em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .dessert-price {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 2.4rem;
+    color: var(--rose-light);
+    line-height: 1;
+  }
+
+  .dessert-price span {
+    font-family: 'Noto Serif TC', serif;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-left: 0.2rem;
+  }
+
+  .dessert-card-header .corner-deco {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 2.5rem;
+    color: rgba(196,168,130,0.1);
+    line-height: 1;
+  }
+
+  .dessert-items {
+    padding: 1.5rem 1.8rem 2rem;
+    flex: 1;
+  }
+
+  .dessert-items-title {
+    font-size: 0.62rem;
+    letter-spacing: 0.4em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .dessert-item-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .dessert-item-list li {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    line-height: 1.5;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .dessert-item-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.5rem;
+    top: 0.35em;
+  }
+
+  .dessert-item-list li em {
+    color: var(--rose);
+    font-style: normal;
+  }
+
+  .dessert-add-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(196,168,130,0.1);
+    border: 1px solid rgba(196,168,130,0.2);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    font-size: 0.68rem;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8rem;
+  }
+
   /* ── Footer ── */
   footer {
     background: var(--dark);
@@ -670,6 +816,86 @@
       服務 1 – 4 項接受租用貴客<em>自行決定服務來源</em>，彈性搭配所需。<br>
       唯如需第 5 項「甜品 / 外燴桌」服務，<em>僅得由策展室現場提供</em>，以確保品質與場地規範。
     </p>
+  </div>
+</section>
+
+<!-- ══ DESSERT TABLE ══ -->
+<section class="dessert-section">
+  <div class="dessert-inner">
+    <p class="section-label fade-in">Dessert Table</p>
+    <h2 class="section-title fade-in">甜品桌<span class="accent">套餐規格</span></h2>
+    <div class="title-line fade-in"></div>
+
+    <div class="dessert-grid">
+
+      <!-- Tier 1 -->
+      <div class="dessert-card fade-in">
+        <div class="dessert-card-header">
+          <span class="corner-deco">I</span>
+          <p class="dessert-tier">Essential</p>
+          <div class="dessert-price">15,000<span>元</span></div>
+        </div>
+        <div class="dessert-items">
+          <p class="dessert-items-title">提供品項</p>
+          <ul class="dessert-item-list">
+            <li>水果馬卡龍</li>
+            <li>蛋沙拉可頌</li>
+            <li>香蕉鹹 pizza</li>
+            <li>肉桂捲</li>
+            <li>優格奶酪</li>
+            <li>雙層蛋糕</li>
+            <li>季節水果</li>
+            <li>鹹派</li>
+            <li>無糖茶飲 <em>（紅、綠茶各份）</em></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tier 2 -->
+      <div class="dessert-card featured fade-in">
+        <div class="dessert-card-header">
+          <span class="corner-deco">II</span>
+          <p class="dessert-tier">Signature</p>
+          <div class="dessert-price">25,000<span>元</span></div>
+        </div>
+        <div class="dessert-items">
+          <p class="dessert-items-title">提供品項</p>
+          <ul class="dessert-item-list">
+            <li><em>3 層客製蛋糕</em>（8 / 6 / 4 吋）</li>
+            <li>巧克力塔（30 顆）</li>
+            <li>10 吋馬卡龍（藍莓優格）</li>
+            <li>馬鈴薯花鹹派</li>
+            <li>抹茶紅豆奶酪</li>
+            <li>季節水果奶酪</li>
+            <li>蘋果肉桂捲</li>
+            <li>蛋沙拉可頌</li>
+            <li>香蕉鹹 pizza</li>
+            <li>飲料 <em>（無糖紅、綠茶、柳橙雪碧、水果汽泡飲等各份）</em></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Tier 3 -->
+      <div class="dessert-card premium fade-in">
+        <div class="dessert-card-header">
+          <span class="corner-deco">III</span>
+          <p class="dessert-tier">Premium</p>
+          <div class="dessert-price">35,000<span>元</span></div>
+        </div>
+        <div class="dessert-items">
+          <p class="dessert-items-title">提供品項</p>
+          <span class="dessert-add-badge">✦ &nbsp;含 25,000 全品項，另加提供</span>
+          <ul class="dessert-item-list">
+            <li>鏡面小蛋糕</li>
+            <li>和菓子</li>
+            <li>乳酪藝術拼盤</li>
+            <li><em>蛋糕 DIY</em></li>
+            <li>蘑菇濃湯</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
