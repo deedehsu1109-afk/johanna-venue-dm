@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>幸福策展室 × 場地租用</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --charcoal: #2a2a2a;
+    --dark: #1a1a1a;
+    --rose: #c9a8a0;
+    --rose-light: #e8d5d0;
+    --gold: #c4a882;
+    --gold-light: #dfc9a8;
+    --cream: #f5f0eb;
+    --text-light: #e8e0d8;
+    --text-muted: #b0a8a0;
+  }
+
+  body {
+    background-color: var(--dark);
+    color: var(--text-light);
+    font-family: 'Noto Serif TC', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 50%, rgba(60,35,30,0.55) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 80% 30%, rgba(45,30,25,0.5) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 50% at 50% 80%, rgba(30,20,18,0.6) 0%, transparent 70%),
+      linear-gradient(135deg, #1a1210 0%, #231a16 30%, #1e1714 60%, #181210 100%);
+  }
+
+  /* Subtle texture overlay */
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.012) 2px, rgba(255,255,255,0.012) 4px),
+      repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(196,168,130,0.015) 2px, rgba(196,168,130,0.015) 4px);
+  }
+
+  /* Decorative floral blobs */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle 200px at 10% 20%, rgba(180,100,90,0.08) 0%, transparent 70%),
+      radial-gradient(circle 150px at 85% 15%, rgba(196,168,130,0.07) 0%, transparent 70%),
+      radial-gradient(circle 180px at 75% 85%, rgba(150,80,70,0.06) 0%, transparent 70%),
+      radial-gradient(circle 120px at 15% 80%, rgba(196,168,130,0.05) 0%, transparent 70%);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(20,14,12,0.1) 0%, rgba(15,10,9,0.5) 70%, rgba(10,7,6,0.75) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero-script {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--rose-light);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 2px 20px rgba(180,120,110,0.4);
+  }
+
+  .hero-zh {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-weight: 300;
+    color: var(--gold-light);
+    letter-spacing: 0.5em;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-divider::before,
+  .hero-divider::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+
+  .hero-divider::after {
+    background: linear-gradient(to left, transparent, var(--gold));
+  }
+
+  .hero-divider span {
+    color: var(--gold);
+    font-size: 1.2rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 0.15em;
+    line-height: 1.2;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.5);
+  }
+
+  .hero-title span {
+    color: var(--rose);
+  }
+
+  .hero-sub {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    animation: fadeInUp 2s ease infinite;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  @keyframes fadeInUp {
+    0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 1; transform: translateX(-50%) translateY(-6px); }
+  }
+
+  /* ── Sections ── */
+  .section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title .accent { color: var(--rose); }
+
+  .title-line {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(to right, var(--gold), var(--rose));
+    margin: 1.2rem 0 2.5rem;
+  }
+
+  /* ── Rental Cards ── */
+  .rental-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 600px) {
+    .rental-grid { grid-template-columns: 1fr; }
+  }
+
+  .rental-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(196,168,130,0.2);
+    border-radius: 2px;
+    padding: 2rem 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .rental-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--gold), var(--rose));
+  }
+
+  .rental-card:hover {
+    border-color: rgba(196,168,130,0.5);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .card-num {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 3rem;
+    color: rgba(196,168,130,0.15);
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    line-height: 1;
+  }
+
+  .card-type {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.2rem;
+    color: #fff;
+  }
+
+  .space-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(196,168,130,0.1);
+    border: 1px solid rgba(196,168,130,0.25);
+    padding: 0.3rem 0.8rem;
+    border-radius: 2px;
+    font-size: 0.75rem;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+  }
+
+  .price-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .price-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .price-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+  }
+
+  .price-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--rose-light);
+    line-height: 1;
+  }
+
+  .price-unit {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: 'Noto Serif TC', serif;
+  }
+
+  /* ── Includes ── */
+  .includes {
+    background: rgba(196,168,130,0.06);
+    border: 1px solid rgba(196,168,130,0.12);
+    border-radius: 2px;
+    padding: 1.5rem 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .includes-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .includes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .includes-tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Notes ── */
+  .notes {
+    border-left: 1px solid rgba(196,168,130,0.25);
+    padding-left: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  .note-item {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+    position: relative;
+    padding-left: 0.8rem;
+  }
+
+  .note-item::before {
+    content: '＊';
+    position: absolute;
+    left: -0.8rem;
+    color: var(--rose);
+    font-size: 0.7rem;
+  }
+
+  .note-highlight {
+    color: var(--rose-light);
+  }
+
+  /* ── Divider ── */
+  .ornate-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 1rem 0 4rem;
+  }
+
+  .ornate-divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(196,168,130,0.3), transparent);
+  }
+
+  .ornate-divider .icon {
+    color: var(--gold);
+    font-size: 1rem;
+    letter-spacing: 0.3em;
+  }
+
+  /* ── Services ── */
+  .services-section {
+    background: linear-gradient(135deg, rgba(40,30,25,0.9) 0%, rgba(25,20,18,0.95) 100%);
+    border-top: 1px solid rgba(196,168,130,0.15);
+    border-bottom: 1px solid rgba(196,168,130,0.15);
+    padding: 5rem 2rem;
+  }
+
+  .services-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin: 2.5rem 0 2rem;
+  }
+
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+    .services-grid .service-item:last-child { grid-column: 1 / -1; }
+  }
+
+  .service-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1.5rem 0.8rem;
+    border: 1px solid rgba(196,168,130,0.15);
+    border-radius: 2px;
+    background: rgba(255,255,255,0.02);
+    text-align: center;
+    transition: all 0.3s;
+    cursor: default;
+  }
+
+  .service-item:hover {
+    border-color: rgba(196,168,130,0.4);
+    background: rgba(196,168,130,0.07);
+    transform: translateY(-3px);
+  }
+
+  .service-icon {
+    font-size: 1.5rem;
+  }
+
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.65rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+  }
+
+  .service-name {
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    color: var(--text-light);
+    line-height: 1.4;
+  }
+
+  .service-note {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    line-height: 2;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(201,168,160,0.2);
+    border-radius: 2px;
+    background: rgba(201,168,160,0.04);
+  }
+
+  .service-note em {
+    color: var(--rose-light);
+    font-style: normal;
+  }
+
+  /* ── Decorative strip ── */
+  .photo-strip {
+    height: 160px;
+    background:
+      repeating-linear-gradient(90deg, rgba(196,168,130,0.04) 0px, rgba(196,168,130,0.04) 1px, transparent 1px, transparent 60px),
+      linear-gradient(to right, #100e0c, #1c1510, #221812, #1c1510, #100e0c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    border-top: 1px solid rgba(196,168,130,0.1);
+    border-bottom: 1px solid rgba(196,168,130,0.1);
+  }
+
+  .strip-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: rgba(196,168,130,0.35);
+    letter-spacing: 0.1em;
+    user-select: none;
+  }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--dark);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .footer-script {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: var(--rose-light);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-zh {
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 0 auto 1.5rem;
+  }
+
+  .footer-copy {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ── Entrance animation ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-script">Johanna</div>
+    <div class="hero-zh">藝術花蛋糕</div>
+    <div class="hero-divider"><span>✦</span></div>
+    <h1 class="hero-title"><span>幸福</span>策展室</h1>
+    <p class="hero-sub">VENUE RENTAL · SPACE CURATION</p>
+  </div>
+
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- ══ RENTAL ══ -->
+<div class="section fade-in">
+  <p class="section-label">Venue Rental</p>
+  <h2 class="section-title">場地租用<span class="accent">方式</span></h2>
+  <div class="title-line"></div>
+
+  <div class="rental-grid">
+
+    <!-- Card 1 -->
+    <div class="rental-card fade-in">
+      <span class="card-num">01</span>
+      <p class="card-type">Lecture / Course</p>
+      <h3 class="card-title">辦理講座 · 課程</h3>
+      <span class="space-badge">✦ &nbsp;使用空間：展區 ＋ 客用洗手間</span>
+      <div class="price-row">
+        <div class="price-item">
+          <span class="price-label">鹳 日</span>
+          <span class="price-val">800</span>
+          <span class="price-unit">元 / 小時</span>
+        </div>
+        <div class="price-item">
+          <span class="price-label">假 日</span>
+          <span class="price-val">1,000</span>
+          <span class="price-unit">元 / 小時</span>
+        </div>
+      </div>
+      <div class="notes">
+        <p class="note-item">每次租用<span class="note-highlight">至少 3 小時</span>，含進場佈置及退場善後時間。</p>
+        <p class="note-item">超時 30 分鐘內不另計費；30 分鐘以上未滿 1 小時，以<span class="note-highlight">半價</span>加收場地費。</p>
+        <p class="note-item">現場除飲用水外，<span class="note-highlight">禁帶外食、飲料、咖啡</span>。</p>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="rental-card fade-in">
+      <span class="card-num">02</span>
+      <p class="card-type">Event Hosting</p>
+      <h3 class="card-title">活動舉辦</h3>
+      <span class="space-badge">✦ &nbsp;使用空間：展區 ＋ 桌椅區 ＋ 客用洗手間</span>
+      <div class="price-row">
+        <div class="price-item">
+          <span class="price-label">鹳 日</span>
+          <span class="price-val">1,500</span>
+          <span class="price-unit">元 / 小時</span>
+        </div>
+        <div class="price-item">
+          <span class="price-label">假 日</span>
+          <span class="price-val">2,000</span>
+          <span class="price-unit">元 / 小時</span>
+        </div>
+      </div>
+      <div class="notes">
+        <p class="note-item">超時 30 分鐘內不另計費；30 分鐘以上未滿 1 小時，以<span class="note-highlight">半價</span>加收場地費。</p>
+        <p class="note-item">現場除飲用水外，<span class="note-highlight">禁帶外食、飲料、咖啡</span>。</p>
+        <p class="note-item">辦理活動需提供<span class="note-highlight">押金 NT$5,000</span>，撤場結束當場退還。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Includes -->
+  <div class="includes fade-in">
+    <p class="includes-title">✦ &nbsp;場地租用包含 &nbsp;· &nbsp;Included Amenities</p>
+    <div class="includes-list">
+      <span class="includes-tag">無糖茶飲</span>
+      <span class="includes-tag">投影機</span>
+      <span class="includes-tag">擴大機</span>
+      <span class="includes-tag">投影筆</span>
+      <span class="includes-tag">桌椅</span>
+      <span class="includes-tag">無線網路 Wi-Fi</span>
+    </div>
+  </div>
+
+  <div class="ornate-divider fade-in">
+    <div class="line"></div>
+    <span class="icon">✦ &nbsp; ✦ &nbsp; ✦</span>
+    <div class="line"></div>
+  </div>
+</div>
+
+<!-- ══ SERVICES ══ -->
+<section class="services-section">
+  <div class="services-inner">
+    <p class="section-label fade-in">Curatorial Services</p>
+    <h2 class="section-title fade-in">幸禮策展室<span class="accent">提供服務</span></h2>
+    <div class="title-line fade-in"></div>
+
+    <div class="services-grid">
+      <div class="service-item fade-in">
+        <span class="service-icon">📋</span>
+        <span class="service-num">Service 01</span>
+        <span class="service-name">活動策畫</span>
+      </div>
+      <div class="service-item fade-in">
+        <span class="service-icon">🎤</span>
+        <span class="service-num">Service 02</span>
+        <span class="service-name">活動主持</span>
+      </div>
+      <div class="service-item fade-in">
+        <span class="service-icon">🎭</span>
+        <span class="service-num">Service 03</span>
+        <span class="service-name">活動表演</span>
+      </div>
+      <div class="service-item fade-in">
+        <span class="service-icon">💐</span>
+        <span class="service-num">Service 04</span>
+        <span class="service-name">花藝佈置</span>
+      </div>
+      <div class="service-item fade-in" style="border-color: rgba(201,168,160,0.35); background: rgba(201,168,160,0.06);">
+        <span class="service-icon">🎂</span>
+        <span class="service-num">Service 05</span>
+        <span class="service-name">甜品<br>外燴桌</span>
+      </div>
+    </div>
+
+    <p class="service-note fade-in">
+      服務 1 – 4 項接受租用貴客<em>自行決定服務來源</em>，彈性搭配所需。<br>
+      唯如需第 5 項「甜品 / 外燴桌」服務，<em>僅得由策展室現場提供</em>，以確保品質與場地規範。
+    </p>
+  </div>
+</section>
+
+<!-- ══ DECORATIVE STRIP ══ -->
+<div class="photo-strip">
+  <span class="strip-text">Johanna</span>
+  <span class="strip-text">✦</span>
+  <span class="strip-text">幸福策展室</span>
+  <span class="strip-text">✦</span>
+  <span class="strip-text">藝術花蛋糕</span>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p class="footer-script">Johanna</p>
+  <p class="footer-zh">幸福策展室 &nbsp;·&nbsp; 藝術花蛋糕</p>
+  <div class="footer-line"></div>
+  <p class="footer-copy">HAPPINESS CURATED · ALL RIGHTS RESERVED</p>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Stagger children within grid
+  document.querySelectorAll('.rental-grid .rental-card, .services-grid .service-item').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.12) + 's';
+  });
+</script>
+</body>
+</html>
