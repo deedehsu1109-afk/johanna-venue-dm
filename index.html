@@ -48,8 +48,6 @@
     background-position: center;
   }
 
-
-
   .hero-overlay {
     position: absolute;
     inset: 0;
@@ -472,9 +470,18 @@
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    /* 桌機滑鼠游標提示 */
+    cursor: grab;
   }
 
   .photo-strip::-webkit-scrollbar { display: none; }
+
+  /* 拖曳中切換游標 */
+  .photo-strip.is-dragging {
+    cursor: grabbing;
+    scroll-snap-type: none; /* 拖曳時暫停 snap，避免卡頓 */
+    user-select: none;
+  }
 
   .strip-photo {
     flex: 0 0 33.33vw;
@@ -484,6 +491,16 @@
     transition: opacity 0.4s;
     filter: brightness(0.88) saturate(0.9);
     scroll-snap-align: start;
+    /* 防止圖片拖曳時觸發瀏覽器預設行為 */
+    pointer-events: none;
+  }
+
+  .photo-strip.is-dragging .strip-photo {
+    transition: none;
+  }
+
+  .photo-strip:not(.is-dragging) .strip-photo {
+    pointer-events: auto;
   }
 
   .strip-photo:hover {
@@ -1010,7 +1027,7 @@
 </footer>
 
 <script>
-  // Intersection Observer for fade-in
+  // ── Intersection Observer for fade-in ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1025,6 +1042,40 @@
   // Stagger children within grid
   document.querySelectorAll('.rental-grid .rental-card, .services-grid .service-item').forEach((el, i) => {
     el.style.transitionDelay = (i * 0.12) + 's';
+  });
+
+  // ── Mouse drag scroll for desktop (touch devices use native scroll) ──
+  document.querySelectorAll('.photo-strip').forEach(strip => {
+    let isDragging = false;
+    let startX = 0;
+    let scrollStart = 0;
+    const DRAG_THRESHOLD = 5; // px，超過才視為拖曳（避免誤判為點擊）
+    let moved = false;
+
+    strip.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      moved = false;
+      startX = e.pageX;
+      scrollStart = strip.scrollLeft;
+      strip.classList.add('is-dragging');
+      e.preventDefault(); // 防止文字選取
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const delta = e.pageX - startX;
+      if (Math.abs(delta) > DRAG_THRESHOLD) moved = true;
+      strip.scrollLeft = scrollStart - delta;
+    });
+
+    const stopDrag = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      strip.classList.remove('is-dragging');
+    };
+
+    window.addEventListener('mouseup', stopDrag);
+    window.addEventListener('mouseleave', stopDrag);
   });
 </script>
 </body>
