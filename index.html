@@ -6,1077 +6,1318 @@
 <title>幸福策展室 × 場地租用</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --charcoal: #2a2a2a;
-    --dark: #1a1a1a;
-    --rose: #c9a8a0;
-    --rose-light: #e8d5d0;
-    --gold: #c4a882;
-    --gold-light: #dfc9a8;
-    --cream: #f5f0eb;
-    --text-light: #e8e0d8;
-    --text-muted: #b0a8a0;
-  }
-
-  body {
-    background-color: var(--dark);
-    color: var(--text-light);
-    font-family: 'Noto Serif TC', serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── Hero ── */
-  .hero {
-    position: relative;
-    height: 100vh;
-    min-height: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('733073_0.jpg');
-    background-size: cover;
-    background-position: center;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(20,14,12,0.1) 0%, rgba(15,10,9,0.5) 70%, rgba(10,7,6,0.75) 100%);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .hero-script {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    color: var(--rose-light);
-    letter-spacing: 0.02em;
-    line-height: 1;
-    margin-bottom: 0.3rem;
-    text-shadow: 0 2px 20px rgba(180,120,110,0.4);
-  }
-
-  .hero-zh {
-    font-family: 'Noto Serif TC', serif;
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-    font-weight: 300;
-    color: var(--gold-light);
-    letter-spacing: 0.5em;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-  }
-
-  .hero-divider {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .hero-divider::before,
-  .hero-divider::after {
-    content: '';
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold));
-  }
-
-  .hero-divider::after {
-    background: linear-gradient(to left, transparent, var(--gold));
-  }
-
-  .hero-divider span {
-    color: var(--gold);
-    font-size: 1.2rem;
-  }
-
-  .hero-title {
-    font-size: clamp(2.2rem, 5vw, 3.8rem);
-    font-weight: 500;
-    color: #fff;
-    letter-spacing: 0.15em;
-    line-height: 1.2;
-    text-shadow: 0 2px 30px rgba(0,0,0,0.5);
-  }
-
-  .hero-title span {
-    color: var(--rose);
-  }
-
-  .hero-sub {
-    margin-top: 1rem;
-    font-size: 0.85rem;
-    letter-spacing: 0.4em;
-    color: var(--text-muted);
-    font-weight: 300;
-  }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--text-muted);
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    animation: fadeInUp 2s ease infinite;
-  }
-
-  .scroll-hint::after {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-  }
-
-  @keyframes fadeInUp {
-    0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
-    50% { opacity: 1; transform: translateX(-50%) translateY(-6px); }
-  }
-
-  /* ── Sections ── */
-  .section {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 5rem 2rem;
-  }
-
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.5em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
-  }
-
-  .section-title {
-    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    line-height: 1.4;
-    margin-bottom: 0.5rem;
-  }
-
-  .section-title .accent { color: var(--rose); }
-
-  .title-line {
-    width: 40px;
-    height: 2px;
-    background: linear-gradient(to right, var(--gold), var(--rose));
-    margin: 1.2rem 0 2.5rem;
-  }
-
-  /* ── Rental Cards ── */
-  .rental-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-  }
-
-  @media (max-width: 600px) {
-    .rental-grid { grid-template-columns: 1fr; }
-  }
-
-  .rental-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(196,168,130,0.2);
-    border-radius: 2px;
-    padding: 2rem 1.8rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s;
-  }
-
-  .rental-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px;
-    height: 100%;
-    background: linear-gradient(to bottom, var(--gold), var(--rose));
-  }
-
-  .rental-card:hover {
-    border-color: rgba(196,168,130,0.5);
-    background: rgba(255,255,255,0.06);
-  }
-
-  .card-num {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 3rem;
-    color: rgba(196,168,130,0.15);
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    line-height: 1;
-  }
-
-  .card-type {
-    font-size: 0.7rem;
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    margin-bottom: 0.6rem;
-  }
-
-  .card-title {
-    font-size: 1.3rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    margin-bottom: 1.2rem;
-    color: #fff;
-  }
-
-  .space-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(196,168,130,0.1);
-    border: 1px solid rgba(196,168,130,0.25);
-    padding: 0.3rem 0.8rem;
-    border-radius: 2px;
-    font-size: 0.75rem;
-    color: var(--gold-light);
-    letter-spacing: 0.1em;
-    margin-bottom: 1.5rem;
-  }
-
-  .price-row {
-    display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .price-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
-  .price-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    color: var(--text-muted);
-  }
-
-  .price-val {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: var(--rose-light);
-    line-height: 1;
-  }
-
-  .price-unit {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    font-family: 'Noto Serif TC', serif;
-  }
-
-  /* ── Includes ── */
-  .includes {
-    background: rgba(196,168,130,0.06);
-    border: 1px solid rgba(196,168,130,0.12);
-    border-radius: 2px;
-    padding: 1.5rem 1.8rem;
-    margin-bottom: 2rem;
-  }
-
-  .includes-title {
-    font-size: 0.7rem;
-    letter-spacing: 0.4em;
-    color: var(--gold);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-  }
-
-  .includes-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-  }
-
-  .includes-tag {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 0.25rem 0.75rem;
-    border-radius: 100px;
-    font-size: 0.75rem;
-    color: var(--text-light);
-    letter-spacing: 0.05em;
-  }
-
-  /* ── Notes ── */
-  .notes {
-    border-left: 1px solid rgba(196,168,130,0.25);
-    padding-left: 1.2rem;
-    margin-top: 1.5rem;
-  }
-
-  .note-item {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    line-height: 1.9;
-    letter-spacing: 0.03em;
-    position: relative;
-    padding-left: 0.8rem;
-  }
-
-  .note-item::before {
-    content: '＊';
-    position: absolute;
-    left: -0.8rem;
-    color: var(--rose);
-    font-size: 0.7rem;
-  }
-
-  .note-highlight {
-    color: var(--rose-light);
-  }
-
-  /* ── Divider ── */
-  .ornate-divider {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin: 1rem 0 4rem;
-  }
-
-  .ornate-divider .line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(196,168,130,0.3), transparent);
-  }
-
-  .ornate-divider .icon {
-    color: var(--gold);
-    font-size: 1rem;
-    letter-spacing: 0.3em;
-  }
-
-  /* ── Services ── */
-  .services-section {
-    background: linear-gradient(135deg, rgba(40,30,25,0.9) 0%, rgba(25,20,18,0.95) 100%);
-    border-top: 1px solid rgba(196,168,130,0.15);
-    border-bottom: 1px solid rgba(196,168,130,0.15);
-    padding: 5rem 2rem;
-  }
-
-  .services-inner {
-    max-width: 860px;
-    margin: 0 auto;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1rem;
-    margin: 2.5rem 0 2rem;
-  }
-
-  @media (max-width: 600px) {
-    .services-grid { grid-template-columns: repeat(2, 1fr); }
-    .services-grid .service-item:last-child { grid-column: 1 / -1; }
-  }
-
-  .service-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 1.5rem 0.8rem;
-    border: 1px solid rgba(196,168,130,0.15);
-    border-radius: 2px;
-    background: rgba(255,255,255,0.02);
-    text-align: center;
-    transition: all 0.3s;
-    cursor: default;
-  }
-
-  .service-item:hover {
-    border-color: rgba(196,168,130,0.4);
-    background: rgba(196,168,130,0.07);
-    transform: translateY(-3px);
-  }
-
-  .service-icon {
-    font-size: 1.5rem;
-  }
-
-  .service-num {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 0.65rem;
-    color: var(--gold);
-    letter-spacing: 0.2em;
-  }
-
-  .service-name {
-    font-size: 0.82rem;
-    letter-spacing: 0.1em;
-    color: var(--text-light);
-    line-height: 1.4;
-  }
-
-  .service-note {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    margin-top: 1rem;
-    line-height: 2;
-    padding: 1.2rem 1.5rem;
-    border: 1px solid rgba(201,168,160,0.2);
-    border-radius: 2px;
-    background: rgba(201,168,160,0.04);
-  }
-
-  .service-note em {
-    color: var(--rose-light);
-    font-style: normal;
-  }
-
-  /* ── Photo Strip ── */
-  .photo-strip {
-    height: 240px;
-    display: flex;
-    align-items: stretch;
-    gap: 0;
-    border-top: 1px solid rgba(196,168,130,0.15);
-    border-bottom: 1px solid rgba(196,168,130,0.15);
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    /* 桌機滑鼠游標提示 */
-    cursor: grab;
-  }
-
-  .photo-strip::-webkit-scrollbar { display: none; }
-
-  /* 拖曳中切換游標 */
-  .photo-strip.is-dragging {
-    cursor: grabbing;
-    scroll-snap-type: none; /* 拖曳時暫停 snap，避免卡頓 */
-    user-select: none;
-  }
-
-  .strip-photo {
-    flex: 0 0 33.33vw;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.85;
-    transition: opacity 0.4s;
-    filter: brightness(0.88) saturate(0.9);
-    scroll-snap-align: start;
-    /* 防止圖片拖曳時觸發瀏覽器預設行為 */
-    pointer-events: none;
-  }
-
-  .photo-strip.is-dragging .strip-photo {
-    transition: none;
-  }
-
-  .photo-strip:not(.is-dragging) .strip-photo {
-    pointer-events: auto;
-  }
-
-  .strip-photo:hover {
-    opacity: 1;
-    filter: brightness(1) saturate(1);
-  }
-
-  @media (max-width: 600px) {
-    .strip-photo {
-      flex: 0 0 100vw;
-      scroll-snap-align: center;
-    }
-  }
-
-  /* ── Dessert Table ── */
-  .dessert-section {
-    background: linear-gradient(180deg, rgba(30,20,18,0.98) 0%, rgba(20,14,12,1) 100%);
-    padding: 5rem 2rem;
-    border-top: 1px solid rgba(196,168,130,0.15);
-  }
-
-  .dessert-inner {
-    max-width: 960px;
-    margin: 0 auto;
-  }
-
-  .dessert-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-  }
-
-  @media (max-width: 720px) {
-    .dessert-grid { grid-template-columns: 1fr; }
-  }
-
-  .dessert-card {
-    position: relative;
-    border-radius: 2px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(196,168,130,0.2);
-    background: rgba(255,255,255,0.03);
-    transition: border-color 0.3s, background 0.3s;
-  }
-
-  .dessert-card:hover {
-    border-color: rgba(196,168,130,0.45);
-    background: rgba(255,255,255,0.055);
-  }
-
-  .dessert-card.featured {
-    border-color: rgba(201,168,160,0.35);
-  }
-
-  .dessert-card.premium {
-    border-color: rgba(196,168,130,0.35);
-  }
-
-  .dessert-card-header {
-    padding: 1.8rem 1.8rem 1.4rem;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    position: relative;
-  }
-
-  .dessert-tier {
-    font-size: 0.65rem;
-    letter-spacing: 0.45em;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-  }
-
-  .dessert-price {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 2.4rem;
-    color: var(--rose-light);
-    line-height: 1;
-  }
-
-  .dessert-price span {
-    font-family: 'Noto Serif TC', serif;
-    font-style: normal;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
-    margin-left: 0.2rem;
-  }
-
-  .dessert-card-header .corner-deco {
-    position: absolute;
-    top: 1.2rem;
-    right: 1.5rem;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 2.5rem;
-    color: rgba(196,168,130,0.1);
-    line-height: 1;
-  }
-
-  .dessert-items {
-    padding: 1.5rem 1.8rem 2rem;
-    flex: 1;
-  }
-
-  .dessert-items-title {
-    font-size: 0.62rem;
-    letter-spacing: 0.4em;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-  }
-
-  .dessert-item-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-  }
-
-  .dessert-item-list li {
-    font-size: 0.8rem;
-    color: var(--text-light);
-    letter-spacing: 0.04em;
-    line-height: 1.5;
-    padding-left: 1.2rem;
-    position: relative;
-  }
-
-  .dessert-item-list li::before {
-    content: '✦';
-    position: absolute;
-    left: 0;
-    color: var(--gold);
-    font-size: 0.5rem;
-    top: 0.35em;
-  }
-
-  .dessert-item-list li em {
-    color: var(--rose);
-    font-style: normal;
-  }
-
-  .dessert-add-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: rgba(196,168,130,0.1);
-    border: 1px solid rgba(196,168,130,0.2);
-    padding: 0.3rem 0.8rem;
-    border-radius: 2px;
-    font-size: 0.68rem;
-    color: var(--gold-light);
-    letter-spacing: 0.1em;
-    margin-bottom: 0.8rem;
-  }
-
-  /* ── Footer ── */
-  footer {
-    background: var(--dark);
-    padding: 3rem 2rem;
-    text-align: center;
-  }
-
-  .footer-script {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2rem;
-    color: var(--rose-light);
-    margin-bottom: 0.5rem;
-  }
-
-  .footer-zh {
-    font-size: 0.75rem;
-    letter-spacing: 0.4em;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-  }
-
-  .footer-line {
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    margin: 0 auto 1.5rem;
-  }
-
-  .footer-copy {
-    font-size: 0.68rem;
-    letter-spacing: 0.2em;
-    color: rgba(255,255,255,0.2);
-  }
-
-  /* ── Entrance animation ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+--charcoal: #2a2a2a;
+--dark: #1a1a1a;
+--rose: #c9a8a0;
+--rose-light: #e8d5d0;
+--gold: #c4a882;
+--gold-light: #dfc9a8;
+--cream: #f5f0eb;
+--text-light: #e8e0d8;
+--text-muted: #b0a8a0;
+}
+
+body {
+background-color: var(--dark);
+color: var(--text-light);
+font-family: 'Noto Serif TC', serif;
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* ── Hero ── */
+.hero {
+position: relative;
+height: 100vh;
+min-height: 600px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+}
+
+.hero-bg {
+position: absolute;
+inset: 0;
+background-image: url('733073_0.jpg');
+background-size: cover;
+background-position: center;
+}
+
+.hero-overlay {
+position: absolute;
+inset: 0;
+background: radial-gradient(ellipse at center, rgba(20,14,12,0.1) 0%, rgba(15,10,9,0.5) 70%, rgba(10,7,6,0.75) 100%);
+}
+
+.hero-content {
+position: relative;
+z-index: 2;
+text-align: center;
+padding: 2rem;
+}
+
+.hero-script {
+font-family: 'Dancing Script', cursive;
+font-size: clamp(2.5rem, 6vw, 5rem);
+color: var(--rose-light);
+letter-spacing: 0.02em;
+line-height: 1;
+margin-bottom: 0.3rem;
+text-shadow: 0 2px 20px rgba(180,120,110,0.4);
+}
+
+.hero-zh {
+font-family: 'Noto Serif TC', serif;
+font-size: clamp(1rem, 2.5vw, 1.5rem);
+font-weight: 300;
+color: var(--gold-light);
+letter-spacing: 0.5em;
+margin-bottom: 2rem;
+text-transform: uppercase;
+}
+
+.hero-divider {
+display: flex;
+align-items: center;
+gap: 1.2rem;
+justify-content: center;
+margin-bottom: 1.5rem;
+}
+
+.hero-divider::before,
+.hero-divider::after {
+content: '';
+width: 60px;
+height: 1px;
+background: linear-gradient(to right, transparent, var(--gold));
+}
+
+.hero-divider::after {
+background: linear-gradient(to left, transparent, var(--gold));
+}
+
+.hero-divider span {
+color: var(--gold);
+font-size: 1.2rem;
+}
+
+.hero-title {
+font-size: clamp(2.2rem, 5vw, 3.8rem);
+font-weight: 500;
+color: #fff;
+letter-spacing: 0.15em;
+line-height: 1.2;
+text-shadow: 0 2px 30px rgba(0,0,0,0.5);
+}
+
+.hero-title span {
+color: var(--rose);
+}
+
+.hero-sub {
+margin-top: 1rem;
+font-size: 0.85rem;
+letter-spacing: 0.4em;
+color: var(--text-muted);
+font-weight: 300;
+}
+
+.scroll-hint {
+position: absolute;
+bottom: 2rem;
+left: 50%;
+transform: translateX(-50%);
+z-index: 2;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.5rem;
+color: var(--text-muted);
+font-size: 0.7rem;
+letter-spacing: 0.3em;
+animation: fadeInUp 2s ease infinite;
+}
+
+.scroll-hint::after {
+content: '';
+display: block;
+width: 1px;
+height: 40px;
+background: linear-gradient(to bottom, var(--gold), transparent);
+}
+
+@keyframes fadeInUp {
+0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+50% { opacity: 1; transform: translateX(-50%) translateY(-6px); }
+}
+
+/* ── Sections ── */
+.section {
+max-width: 860px;
+margin: 0 auto;
+padding: 5rem 2rem;
+}
+
+.section-label {
+font-size: 0.7rem;
+letter-spacing: 0.5em;
+color: var(--gold);
+text-transform: uppercase;
+margin-bottom: 0.8rem;
+}
+
+.section-title {
+font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+font-weight: 500;
+letter-spacing: 0.1em;
+line-height: 1.4;
+margin-bottom: 0.5rem;
+}
+
+.section-title .accent { color: var(--rose); }
+
+.title-line {
+width: 40px;
+height: 2px;
+background: linear-gradient(to right, var(--gold), var(--rose));
+margin: 1.2rem 0 2.5rem;
+}
+
+/* ── Rental Cards ── */
+.rental-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1.5rem;
+margin-bottom: 3rem;
+}
+
+@media (max-width: 600px) {
+.rental-grid { grid-template-columns: 1fr; }
+}
+
+.rental-card {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(196,168,130,0.2);
+border-radius: 2px;
+padding: 2rem 1.8rem;
+position: relative;
+overflow: hidden;
+transition: border-color 0.3s;
+}
+
+.rental-card::before {
+content: '';
+position: absolute;
+top: 0; left: 0;
+width: 3px;
+height: 100%;
+background: linear-gradient(to bottom, var(--gold), var(--rose));
+}
+
+.rental-card:hover {
+border-color: rgba(196,168,130,0.5);
+background: rgba(255,255,255,0.06);
+}
+
+.card-num {
+font-family: 'Playfair Display', serif;
+font-style: italic;
+font-size: 3rem;
+color: rgba(196,168,130,0.15);
+position: absolute;
+top: 1rem;
+right: 1.5rem;
+line-height: 1;
+}
+
+.card-type {
+font-size: 0.7rem;
+letter-spacing: 0.4em;
+color: var(--gold);
+margin-bottom: 0.6rem;
+}
+
+.card-title {
+font-size: 1.3rem;
+font-weight: 500;
+letter-spacing: 0.1em;
+margin-bottom: 1.2rem;
+color: #fff;
+}
+
+.space-badge {
+display: inline-flex;
+align-items: center;
+gap: 0.4rem;
+background: rgba(196,168,130,0.1);
+border: 1px solid rgba(196,168,130,0.25);
+padding: 0.3rem 0.8rem;
+border-radius: 2px;
+font-size: 0.75rem;
+color: var(--gold-light);
+letter-spacing: 0.1em;
+margin-bottom: 1.5rem;
+}
+
+.price-row {
+display: flex;
+gap: 1.5rem;
+margin-bottom: 1.5rem;
+flex-wrap: wrap;
+}
+
+.price-item {
+display: flex;
+flex-direction: column;
+gap: 0.2rem;
+}
+
+.price-label {
+font-size: 0.65rem;
+letter-spacing: 0.3em;
+color: var(--text-muted);
+}
+
+.price-val {
+font-family: 'Playfair Display', serif;
+font-size: 1.6rem;
+color: var(--rose-light);
+line-height: 1;
+}
+
+.price-unit {
+font-size: 0.7rem;
+color: var(--text-muted);
+font-family: 'Noto Serif TC', serif;
+}
+
+/* ── Includes ── */
+.includes {
+background: rgba(196,168,130,0.06);
+border: 1px solid rgba(196,168,130,0.12);
+border-radius: 2px;
+padding: 1.5rem 1.8rem;
+margin-bottom: 2rem;
+}
+
+.includes-title {
+font-size: 0.7rem;
+letter-spacing: 0.4em;
+color: var(--gold);
+margin-bottom: 1rem;
+text-transform: uppercase;
+}
+
+.includes-list {
+display: flex;
+flex-wrap: wrap;
+gap: 0.6rem;
+}
+
+.includes-tag {
+background: rgba(255,255,255,0.05);
+border: 1px solid rgba(255,255,255,0.1);
+padding: 0.25rem 0.75rem;
+border-radius: 100px;
+font-size: 0.75rem;
+color: var(--text-light);
+letter-spacing: 0.05em;
+}
+
+/* ── Notes ── */
+.notes {
+border-left: 1px solid rgba(196,168,130,0.25);
+padding-left: 1.2rem;
+margin-top: 1.5rem;
+}
+
+.note-item {
+font-size: 0.78rem;
+color: var(--text-muted);
+line-height: 1.9;
+letter-spacing: 0.03em;
+position: relative;
+padding-left: 0.8rem;
+}
+
+.note-item::before {
+content: '＊';
+position: absolute;
+left: -0.8rem;
+color: var(--rose);
+font-size: 0.7rem;
+}
+
+.note-highlight {
+color: var(--rose-light);
+}
+
+/* ── Divider ── */
+.ornate-divider {
+display: flex;
+align-items: center;
+gap: 1.5rem;
+margin: 1rem 0 2rem;
+}
+
+.ornate-divider .line {
+flex: 1;
+height: 1px;
+background: linear-gradient(to right, transparent, rgba(196,168,130,0.3), transparent);
+}
+
+.ornate-divider .icon {
+color: var(--gold);
+font-size: 1rem;
+letter-spacing: 0.3em;
+}
+
+/* ── Photo Carousel ── */
+.photo-carousel {
+width: 100%;
+position: relative;
+overflow: hidden;
+border-top: 1px solid rgba(196,168,130,0.15);
+border-bottom: 1px solid rgba(196,168,130,0.15);
+margin: 0 0 4rem;
+}
+
+.carousel-track {
+display: flex;
+gap: 4px;
+overflow-x: auto;
+scroll-snap-type: x mandatory;
+-webkit-overflow-scrolling: touch;
+scrollbar-width: none;
+cursor: grab;
+user-select: none;
+}
+
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-track.dragging { cursor: grabbing; scroll-snap-type: none; }
+
+.carousel-slide {
+flex: 0 0 280px;
+height: 260px;
+scroll-snap-align: start;
+background-size: cover;
+background-position: center;
+filter: brightness(0.85) saturate(0.92);
+transition: filter 0.3s;
+}
+
+@media (max-width: 600px) {
+.carousel-slide { flex: 0 0 220px; height: 200px; }
+}
+
+.carousel-slide:hover {
+filter: brightness(1) saturate(1);
+}
+
+.carousel-btn {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: rgba(15,10,9,0.65);
+border: 1px solid rgba(196,168,130,0.35);
+color: var(--gold);
+width: 38px;
+height: 38px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+z-index: 10;
+font-size: 1.1rem;
+transition: background 0.2s, border-color 0.2s;
+line-height: 1;
+}
+
+.carousel-btn:hover {
+background: rgba(196,168,130,0.2);
+border-color: rgba(196,168,130,0.6);
+}
+
+.carousel-prev { left: 0.8rem; }
+.carousel-next { right: 0.8rem; }
+
+/* ── Services ── */
+.services-section {
+background: linear-gradient(135deg, rgba(40,30,25,0.9) 0%, rgba(25,20,18,0.95) 100%);
+border-top: 1px solid rgba(196,168,130,0.15);
+border-bottom: 1px solid rgba(196,168,130,0.15);
+padding: 5rem 2rem;
+}
+
+.services-inner {
+max-width: 860px;
+margin: 0 auto;
+}
+
+.services-grid {
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+gap: 1rem;
+margin: 2.5rem 0 2rem;
+}
+
+@media (max-width: 600px) {
+.services-grid { grid-template-columns: repeat(2, 1fr); }
+.services-grid .service-item:last-child { grid-column: 1 / -1; }
+}
+
+.service-item {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.6rem;
+padding: 1.5rem 0.8rem;
+border: 1px solid rgba(196,168,130,0.15);
+border-radius: 2px;
+background: rgba(255,255,255,0.02);
+text-align: center;
+transition: all 0.3s;
+cursor: default;
+}
+
+.service-item:hover {
+border-color: rgba(196,168,130,0.4);
+background: rgba(196,168,130,0.07);
+transform: translateY(-3px);
+}
+
+.service-icon { font-size: 1.5rem; }
+
+.service-num {
+font-family: 'Playfair Display', serif;
+font-style: italic;
+font-size: 0.65rem;
+color: var(--gold);
+letter-spacing: 0.2em;
+}
+
+.service-name {
+font-size: 0.82rem;
+letter-spacing: 0.1em;
+color: var(--text-light);
+line-height: 1.4;
+}
+
+.service-note {
+font-size: 0.72rem;
+color: var(--text-muted);
+margin-top: 1rem;
+line-height: 2;
+padding: 1.2rem 1.5rem;
+border: 1px solid rgba(201,168,160,0.2);
+border-radius: 2px;
+background: rgba(201,168,160,0.04);
+}
+
+.service-note em {
+color: var(--rose-light);
+font-style: normal;
+}
+
+/* ── Dessert Table ── */
+.dessert-section {
+background: linear-gradient(180deg, rgba(30,20,18,0.98) 0%, rgba(20,14,12,1) 100%);
+padding: 5rem 2rem;
+border-top: 1px solid rgba(196,168,130,0.15);
+}
+
+.dessert-inner {
+max-width: 960px;
+margin: 0 auto;
+}
+
+.dessert-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 1.5rem;
+margin-top: 2.5rem;
+margin-bottom: 0;
+}
+
+@media (max-width: 720px) {
+.dessert-grid { grid-template-columns: 1fr; }
+}
+
+.dessert-card {
+position: relative;
+border-radius: 2px;
+overflow: hidden;
+display: flex;
+flex-direction: column;
+border: 1px solid rgba(196,168,130,0.2);
+background: rgba(255,255,255,0.03);
+transition: border-color 0.3s, background 0.3s;
+}
+
+.dessert-card:hover {
+border-color: rgba(196,168,130,0.45);
+background: rgba(255,255,255,0.055);
+}
+
+.dessert-card.featured { border-color: rgba(201,168,160,0.35); }
+.dessert-card.premium { border-color: rgba(196,168,130,0.35); }
+
+.dessert-card-header {
+padding: 1.8rem 1.8rem 1.4rem;
+border-bottom: 1px solid rgba(255,255,255,0.07);
+position: relative;
+}
+
+.dessert-tier {
+font-size: 0.65rem;
+letter-spacing: 0.45em;
+color: var(--gold);
+margin-bottom: 0.5rem;
+text-transform: uppercase;
+}
+
+.dessert-price {
+font-family: 'Playfair Display', serif;
+font-style: italic;
+font-size: 2.4rem;
+color: var(--rose-light);
+line-height: 1;
+}
+
+.dessert-price span {
+font-family: 'Noto Serif TC', serif;
+font-style: normal;
+font-size: 0.85rem;
+color: var(--text-muted);
+letter-spacing: 0.05em;
+margin-left: 0.2rem;
+}
+
+.dessert-card-header .corner-deco {
+position: absolute;
+top: 1.2rem;
+right: 1.5rem;
+font-family: 'Playfair Display', serif;
+font-style: italic;
+font-size: 2.5rem;
+color: rgba(196,168,130,0.1);
+line-height: 1;
+}
+
+.dessert-items {
+padding: 1.5rem 1.8rem 2rem;
+flex: 1;
+}
+
+.dessert-items-title {
+font-size: 0.62rem;
+letter-spacing: 0.4em;
+color: var(--text-muted);
+margin-bottom: 1rem;
+text-transform: uppercase;
+}
+
+.dessert-item-list {
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 0.55rem;
+}
+
+.dessert-item-list li {
+font-size: 0.8rem;
+color: var(--text-light);
+letter-spacing: 0.04em;
+line-height: 1.5;
+padding-left: 1.2rem;
+position: relative;
+}
+
+.dessert-item-list li::before {
+content: '✦';
+position: absolute;
+left: 0;
+color: var(--gold);
+font-size: 0.5rem;
+top: 0.35em;
+}
+
+.dessert-item-list li em {
+color: var(--rose);
+font-style: normal;
+}
+
+.dessert-add-badge {
+display: inline-flex;
+align-items: center;
+gap: 0.4rem;
+background: rgba(196,168,130,0.1);
+border: 1px solid rgba(196,168,130,0.2);
+padding: 0.3rem 0.8rem;
+border-radius: 2px;
+font-size: 0.68rem;
+color: var(--gold-light);
+letter-spacing: 0.1em;
+margin-bottom: 0.8rem;
+}
+
+/* ── Footer ── */
+footer {
+background: var(--dark);
+padding: 3rem 2rem;
+text-align: center;
+}
+
+.footer-script {
+font-family: 'Dancing Script', cursive;
+font-size: 2rem;
+color: var(--rose-light);
+margin-bottom: 0.5rem;
+}
+
+.footer-zh {
+font-size: 0.75rem;
+letter-spacing: 0.4em;
+color: var(--text-muted);
+margin-bottom: 1.5rem;
+}
+
+.footer-line {
+width: 60px;
+height: 1px;
+background: linear-gradient(to right, transparent, var(--gold), transparent);
+margin: 0 auto 1.5rem;
+}
+
+.footer-copy {
+font-size: 0.68rem;
+letter-spacing: 0.2em;
+color: rgba(255,255,255,0.2);
+}
+
+/* ── Entrance animation ── */
+.fade-in {
+opacity: 0;
+transform: translateY(24px);
+transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+opacity: 1;
+transform: translateY(0);
+}
 </style>
 </head>
 <body>
 
 <!-- ══ HERO ══ -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
+<div class="hero-bg"></div>
+<div class="hero-overlay"></div>
 
-  <div class="hero-content">
-    <div class="hero-script">Johanna</div>
-    <div class="hero-zh">藝術花蛋糕</div>
-    <div class="hero-divider"><span>✦</span></div>
-    <h1 class="hero-title"><span>幸福</span>策展室</h1>
-    <p class="hero-sub">VENUE RENTAL · SPACE CURATION</p>
-  </div>
+<div class="hero-content">
+<div class="hero-script">Johanna</div>
+<div class="hero-zh">藝術花蛋糕</div>
+<div class="hero-divider"><span>✦</span></div>
+<h1 class="hero-title"><span>幸福</span>策展室</h1>
+<p class="hero-sub">VENUE RENTAL · SPACE CURATION</p>
+</div>
 
-  <div class="scroll-hint">SCROLL</div>
+<div class="scroll-hint">SCROLL</div>
 </section>
 
 <!-- ══ RENTAL ══ -->
 <div class="section fade-in">
-  <p class="section-label">Venue Rental</p>
-  <h2 class="section-title">場地租用<span class="accent">方式</span></h2>
-  <div class="title-line"></div>
+<p class="section-label">Venue Rental</p>
+<h2 class="section-title">場地租用<span class="accent">方式</span></h2>
+<div class="title-line"></div>
 
-  <div class="rental-grid">
+<div class="rental-grid">
 
-    <!-- Card 1 -->
-    <div class="rental-card fade-in">
-      <span class="card-num">01</span>
-      <p class="card-type">Lecture / Course</p>
-      <h3 class="card-title">辦理講座 · 課程</h3>
-      <span class="space-badge">✦ &nbsp;使用空間：展區 ＋ 客用洗手間</span>
-      <div class="price-row">
-        <div class="price-item">
-          <span class="price-label">平 日</span>
-          <span class="price-val">800</span>
-          <span class="price-unit">元 / 小時</span>
-        </div>
-        <div class="price-item">
-          <span class="price-label">假 日</span>
-          <span class="price-val">1,000</span>
-          <span class="price-unit">元 / 小時</span>
-        </div>
-      </div>
-      <div class="notes">
-        <p class="note-item">每次租用<span class="note-highlight">至少 3 小時</span>，含進場佈置及退場善後時間。</p>
-        <p class="note-item">超時 30 分鐘內，以半小時計價；30 分鐘以上未滿 1 小時，以<span class="note-highlight">1小時計價</span>加收場地費。</p>
-        <p class="note-item">現場除飲用水外，<span class="note-highlight">禁帶外食、飲料、咖啡</span>。</p>
-      </div>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="rental-card fade-in">
-      <span class="card-num">02</span>
-      <p class="card-type">Event Hosting</p>
-      <h3 class="card-title">活動舉辦</h3>
-      <span class="space-badge">✦ &nbsp;使用空間：展區 ＋ 桌椅區 ＋ 客用洗手間</span>
-      <div class="price-row">
-        <div class="price-item">
-          <span class="price-label">平 日</span>
-          <span class="price-val">1,500</span>
-          <span class="price-unit">元 / 小時</span>
-        </div>
-        <div class="price-item">
-          <span class="price-label">假 日</span>
-          <span class="price-val">2,000</span>
-          <span class="price-unit">元 / 小時</span>
-        </div>
-      </div>
-      <div class="notes">
-        <p class="note-item">每次租用<span class="note-highlight">至少 3 小時</span>，含進場佈置及退場善後時間。</p>
-        <p class="note-item">超時 30 分鐘內，以半小時計價；30 分鐘以上未滿 1 小時，以<span class="note-highlight">1小時計價</span>加收場地費。</p>
-        <p class="note-item">現場除飲用水外，<span class="note-highlight">禁帶外食、飲料、咖啡</span>。</p>
-        <p class="note-item">辦理活動需提供<span class="note-highlight">押金 NT$5,000</span>，撤場結束當場退還。</p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Includes -->
-  <div class="includes fade-in">
-    <p class="includes-title">✦ &nbsp;場地租用包含 &nbsp;· &nbsp;Included Amenities</p>
-    <div class="includes-list">
-      <span class="includes-tag">無糖茶飲</span>
-      <span class="includes-tag">投影機</span>
-      <span class="includes-tag">音響、麥克風</span>
-      <span class="includes-tag">投影筆</span>
-      <span class="includes-tag">桌椅</span>
-      <span class="includes-tag">無線網路 Wi-Fi</span>
-    </div>
-  </div>
-
-  <div class="ornate-divider fade-in">
-    <div class="line"></div>
-    <span class="icon">✦ &nbsp; ✦ &nbsp; ✦</span>
-    <div class="line"></div>
-  </div>
+<!-- Card 1 -->
+<div class="rental-card fade-in">
+<span class="card-num">01</span>
+<p class="card-type">Lecture / Course</p>
+<h3 class="card-title">辦理講座 · 課程</h3>
+<span class="space-badge">✦ &nbsp;使用空間：展區 ＋ 客用洗手間</span>
+<div class="price-row">
+<div class="price-item">
+<span class="price-label">平 日</span>
+<span class="price-val">800</span>
+<span class="price-unit">元 / 小時</span>
+</div>
+<div class="price-item">
+<span class="price-label">假 日</span>
+<span class="price-val">1,000</span>
+<span class="price-unit">元 / 小時</span>
+</div>
+</div>
+<div class="notes">
+<p class="note-item">每次租用<span class="note-highlight">至少 3 小時</span>，含進場佈置及退場善後時間。</p>
+<p class="note-item">超時 30 分鐘內計<span class="note-highlight">半價</span>；超時 30 分鐘以上，以 1 小時計。</p>
+<p class="note-item">現場除飲用水外，<span class="note-highlight">禁帶外食、飲料、咖啡</span>。</p>
+<p class="note-item">退場後請自行將垃圾帶走；如需代為清理，另收<span class="note-highlight">清潔費 NT$2,000</span>。</p>
+</div>
 </div>
 
-<!-- ══ VENUE PHOTO STRIP ══ -->
-<div class="photo-strip">
-  <div class="strip-photo" style="background-image: url('場地/733074.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733075.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733092.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733093.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733094.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733095.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733097.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733098.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733099.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733100.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733101.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733102.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733103.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733104.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733105.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733106.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733108.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733109.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('場地/733111.jpg');"></div>
+<!-- Card 2 -->
+<div class="rental-card fade-in">
+<span class="card-num">02</span>
+<p class="card-type">Event Hosting</p>
+<h3 class="card-title">活動舉辦</h3>
+<span class="space-badge">✦ &nbsp;使用空間：展區 ＋ 桌椅區 ＋ 客用洗手間</span>
+<div class="price-row">
+<div class="price-item">
+<span class="price-label">平 日</span>
+<span class="price-val">1,500</span>
+<span class="price-unit">元 / 小時</span>
+</div>
+<div class="price-item">
+<span class="price-label">假 日</span>
+<span class="price-val">2,000</span>
+<span class="price-unit">元 / 小時</span>
+</div>
+</div>
+<div class="notes">
+<p class="note-item">超時 30 分鐘內計<span class="note-highlight">半價</span>；超時 30 分鐘以上，以 1 小時計。</p>
+<p class="note-item">現場除飲用水外，<span class="note-highlight">禁帶外食、飲料、咖啡</span>。</p>
+<p class="note-item">辦理活動需提供<span class="note-highlight">押金 NT$5,000</span>，撤場結束當場退還。</p>
+<p class="note-item">退場後請自行將垃圾帶走；如需代為清理，另收<span class="note-highlight">清潔費 NT$2,000</span>。</p>
+</div>
+</div>
+
+</div>
+
+<!-- Includes -->
+<div class="includes fade-in">
+<p class="includes-title">✦ &nbsp;場地租用包含 &nbsp;· &nbsp;Included Amenities</p>
+<div class="includes-list">
+<span class="includes-tag">無糖茶飲</span>
+<span class="includes-tag">投影機</span>
+<span class="includes-tag">擴大機</span>
+<span class="includes-tag">投影筆</span>
+<span class="includes-tag">桌椅</span>
+<span class="includes-tag">無線網路 Wi-Fi</span>
+</div>
+</div>
+
+<div class="ornate-divider fade-in">
+<div class="line"></div>
+<span class="icon">✦ &nbsp; ✦ &nbsp; ✦</span>
+<div class="line"></div>
+</div>
+</div>
+
+<!-- ══ 場地 PHOTO CAROUSEL ══ -->
+<div class="photo-carousel fade-in">
+<div class="carousel-track" id="track-venue">
+<div class="carousel-slide" style="background-image: url('場地/733074.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733075.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733092.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733093.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733094.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733095.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733097.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733098.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733099.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733100.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733101.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733102.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733103.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733104.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733105.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733106.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733108.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733109.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('場地/733111.jpg');"></div>
+</div>
+<button class="carousel-btn carousel-prev" data-target="track-venue">&#8249;</button>
+<button class="carousel-btn carousel-next" data-target="track-venue">&#8250;</button>
 </div>
 
 <!-- ══ SERVICES ══ -->
 <section class="services-section">
-  <div class="services-inner">
-    <p class="section-label fade-in">Curatorial Services</p>
-    <h2 class="section-title fade-in">幸福策展室<span class="accent">提供服務</span></h2>
-    <div class="title-line fade-in"></div>
+<div class="services-inner">
+<p class="section-label fade-in">Curatorial Services</p>
+<h2 class="section-title fade-in">幸福策展室<span class="accent">提供服務</span></h2>
+<div class="title-line fade-in"></div>
 
-    <div class="services-grid">
-      <div class="service-item fade-in">
-        <span class="service-icon">📋</span>
-        <span class="service-num">Service 01</span>
-        <span class="service-name">活動策畫</span>
-      </div>
-      <div class="service-item fade-in">
-        <span class="service-icon">🎤</span>
-        <span class="service-num">Service 02</span>
-        <span class="service-name">活動主持</span>
-      </div>
-      <div class="service-item fade-in">
-        <span class="service-icon">🎭</span>
-        <span class="service-num">Service 03</span>
-        <span class="service-name">活動表演</span>
-      </div>
-      <div class="service-item fade-in">
-        <span class="service-icon">💐</span>
-        <span class="service-num">Service 04</span>
-        <span class="service-name">花藝佈置</span>
-      </div>
-      <div class="service-item fade-in" style="border-color: rgba(201,168,160,0.35); background: rgba(201,168,160,0.06);">
-        <span class="service-icon">🎂</span>
-        <span class="service-num">Service 05</span>
-        <span class="service-name">甜品<br>外燴桌</span>
-      </div>
-    </div>
-
-    <p class="service-note fade-in">
-      服務 1 – 4 項接受租用貴客<em>自行決定服務來源</em>，彈性搭配所需。<br>
-      唯如需第 5 項「甜品 / 外燴桌」服務，<em>僅得由策展室現場提供</em>，以確保品質與場地規範。
-    </p>
-  </div>
-</section>
-
-<!-- ══ DESSERT PHOTO STRIP ══ -->
-<div class="photo-strip">
-  <div class="strip-photo" style="background-image: url('甜品桌/401439.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733069.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733076.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733077.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733078.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733079.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733080.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733081.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733082.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733083.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733084.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733085.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733086.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733087.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733088.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/733113.jpg');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8291.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8297.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8377.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8382.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8383.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8384.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8385.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8391.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8401.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8402.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8403.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8409.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8413.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8417.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8425.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8428.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8429.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8433.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8443.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8470.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8479.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8493.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8495.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8496.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8497.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8499.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8501.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8740.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8742.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8751.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/DD7_8795.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1766.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1779.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1787.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1921.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1922.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1923.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1928.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1935.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1936.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1962.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_1965.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_2023.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_2113.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_2148.JPG');"></div>
-  <div class="strip-photo" style="background-image: url('甜品桌/IMG_2152.JPG');"></div>
+<div class="services-grid">
+<div class="service-item fade-in">
+<span class="service-icon">📋</span>
+<span class="service-num">Service 01</span>
+<span class="service-name">活動策畫</span>
 </div>
+<div class="service-item fade-in">
+<span class="service-icon">🎤</span>
+<span class="service-num">Service 02</span>
+<span class="service-name">活動主持</span>
+</div>
+<div class="service-item fade-in">
+<span class="service-icon">🎭</span>
+<span class="service-num">Service 03</span>
+<span class="service-name">活動表演</span>
+</div>
+<div class="service-item fade-in">
+<span class="service-icon">💐</span>
+<span class="service-num">Service 04</span>
+<span class="service-name">花藝佈置</span>
+</div>
+<div class="service-item fade-in" style="border-color: rgba(201,168,160,0.35); background: rgba(201,168,160,0.06);">
+<span class="service-icon">🎂</span>
+<span class="service-num">Service 05</span>
+<span class="service-name">甜品<br>外燴桌</span>
+</div>
+</div>
+
+<p class="service-note fade-in">
+服務 1 – 4 項接受租用貴客<em>自行決定服務來源</em>，彈性搭配所需。<br>
+唯如需第 5 項「甜品 / 外燴桌」服務，<em>僅得由策展室現場提供</em>，以確保品質與場地規範。
+</p>
+</div>
+</section>
 
 <!-- ══ DESSERT TABLE ══ -->
 <section class="dessert-section">
-  <div class="dessert-inner">
-    <p class="section-label fade-in">Dessert Table</p>
-    <h2 class="section-title fade-in">甜品桌<span class="accent">套餐規格</span></h2>
-    <div class="title-line fade-in"></div>
+<div class="dessert-inner">
+<p class="section-label fade-in">Dessert Table</p>
+<h2 class="section-title fade-in">甜品桌<span class="accent">套餐規格</span></h2>
+<div class="title-line fade-in"></div>
 
-    <div class="dessert-grid">
+<div class="dessert-grid">
 
-      <!-- Tier 1 -->
-      <div class="dessert-card fade-in">
-        <div class="dessert-card-header">
-          <span class="corner-deco">I</span>
-          <p class="dessert-tier">Essential</p>
-          <div class="dessert-price">15,000<span>元</span></div>
-        </div>
-        <div class="dessert-items">
-          <p class="dessert-items-title">提供品項</p>
-          <ul class="dessert-item-list">
-            <li>水果馬卡龍</li>
-            <li>蛋沙拉可頌</li>
-            <li>香蕉鹹 pizza</li>
-            <li>肉桂捲</li>
-            <li>優格奶酪</li>
-            <li>雙層蛋糕</li>
-            <li>季節水果</li>
-            <li>鹹派</li>
-            <li>無糖茶飲 <em>（紅、綠茶各份）</em></li>
-          </ul>
-        </div>
-      </div>
+<!-- Tier 1 -->
+<div class="dessert-card fade-in">
+<div class="dessert-card-header">
+<span class="corner-deco">I</span>
+<p class="dessert-tier">Essential</p>
+<div class="dessert-price">15,000<span>元</span></div>
+</div>
+<div class="dessert-items">
+<p class="dessert-items-title">提供品項</p>
+<ul class="dessert-item-list">
+<li>水果馬卡龍</li>
+<li>蛋沙拉可頌</li>
+<li>香蕉鹹 pizza</li>
+<li>肉桂捲</li>
+<li>優格奶酪</li>
+<li>雙層蛋糕</li>
+<li>季節水果</li>
+<li>鹹派</li>
+<li>無糖茶飲 <em>（紅、綠茶各份）</em></li>
+</ul>
+</div>
+</div>
 
-      <!-- Tier 2 -->
-      <div class="dessert-card featured fade-in">
-        <div class="dessert-card-header">
-          <span class="corner-deco">II</span>
-          <p class="dessert-tier">Signature</p>
-          <div class="dessert-price">25,000<span>元</span></div>
-        </div>
-        <div class="dessert-items">
-          <p class="dessert-items-title">提供品項</p>
-          <ul class="dessert-item-list">
-            <li><em>3 層客製蛋糕</em>（8 / 6 / 4 吋）</li>
-            <li>巧克力塔（30 顆）</li>
-            <li>10 吋馬卡龍（藍莓優格）</li>
-            <li>馬鈴薯花鹹派</li>
-            <li>抹茶紅豆奶酪</li>
-            <li>季節水果奶酪</li>
-            <li>蘋果肉桂捲</li>
-            <li>蛋沙拉可頌</li>
-            <li>香蕉鹹 pizza</li>
-            <li>飲料 <em>（無糖紅、綠茶、柳橙雪碧、水果汽泡飲等各份）</em></li>
-          </ul>
-        </div>
-      </div>
+<!-- Tier 2 -->
+<div class="dessert-card featured fade-in">
+<div class="dessert-card-header">
+<span class="corner-deco">II</span>
+<p class="dessert-tier">Signature</p>
+<div class="dessert-price">25,000<span>元</span></div>
+</div>
+<div class="dessert-items">
+<p class="dessert-items-title">提供品項</p>
+<ul class="dessert-item-list">
+<li><em>3 層客製蛋糕</em>（8 / 6 / 4 吋）</li>
+<li>巧克力塔（30 顆）</li>
+<li>10 吋馬卡龍（藍莓優格）</li>
+<li>馬鈴薯花鹹派</li>
+<li>抹茶紅豆奶酪</li>
+<li>季節水果奶酪</li>
+<li>蘋果肉桂捲</li>
+<li>蛋沙拉可頌</li>
+<li>香蕉鹹 pizza</li>
+<li>飲料 <em>（無糖紅、綠茶、柳橙雪碧、水果汽泡飲等各份）</em></li>
+</ul>
+</div>
+</div>
 
-      <!-- Tier 3 -->
-      <div class="dessert-card premium fade-in">
-        <div class="dessert-card-header">
-          <span class="corner-deco">III</span>
-          <p class="dessert-tier">Premium</p>
-          <div class="dessert-price">35,000<span>元</span></div>
-        </div>
-        <div class="dessert-items">
-          <p class="dessert-items-title">提供品項</p>
-          <span class="dessert-add-badge">✦ &nbsp;含 25,000 全品項，另加提供</span>
-          <ul class="dessert-item-list">
-            <li>鏡面小蛋糕</li>
-            <li>和菓子</li>
-            <li>乳酪藝術拼盤</li>
-            <li><em>蛋糕 DIY</em></li>
-            <li>蘑菇濃湯</li>
-          </ul>
-        </div>
-      </div>
+<!-- Tier 3 -->
+<div class="dessert-card premium fade-in">
+<div class="dessert-card-header">
+<span class="corner-deco">III</span>
+<p class="dessert-tier">Premium</p>
+<div class="dessert-price">35,000<span>元</span></div>
+</div>
+<div class="dessert-items">
+<p class="dessert-items-title">提供品項</p>
+<span class="dessert-add-badge">✦ &nbsp;含 25,000 全品項，另加提供</span>
+<ul class="dessert-item-list">
+<li>鏡面小蛋糕</li>
+<li>和菓子</li>
+<li>乳酪藝術拼盤</li>
+<li><em>蛋糕 DIY</em></li>
+<li>蘑菇濃湯</li>
+</ul>
+</div>
+</div>
 
-    </div>
-  </div>
+</div>
+</div>
 </section>
+
+<!-- ══ 甜品桌 PHOTO CAROUSEL ══ -->
+<div class="photo-carousel fade-in">
+<div class="carousel-track" id="track-dessert">
+<div class="carousel-slide" style="background-image: url('甜品桌/401439.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733069.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733076.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733077.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733078.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733079.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733080.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733081.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733082.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733083.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733084.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733085.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733086.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733087.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733088.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/733113.jpg');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8291.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8297.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8377.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8382.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8383.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8384.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8385.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8391.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8401.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8402.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8403.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8409.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8413.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8417.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8425.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8428.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8429.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8433.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8443.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8470.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8479.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8493.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8495.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8496.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8497.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8499.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8501.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8740.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8742.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8751.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/DD7_8795.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1766.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1779.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1787.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1921.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1922.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1923.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1928.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1935.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1936.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1962.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_1965.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_2023.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_2113.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_2148.JPG');"></div>
+<div class="carousel-slide" style="background-image: url('甜品桌/IMG_2152.JPG');"></div>
+</div>
+<button class="carousel-btn carousel-prev" data-target="track-dessert">&#8249;</button>
+<button class="carousel-btn carousel-next" data-target="track-dessert">&#8250;</button>
+</div>
 
 <!-- ══ FOOTER ══ -->
 <footer>
-  <p class="footer-script">Johanna</p>
-  <p class="footer-zh">幸福策展室 &nbsp;·&nbsp; 藝術花蛋糕</p>
-  <div class="footer-line"></div>
-  <p class="footer-copy">HAPPINESS CURATED · ALL RIGHTS RESERVED</p>
+<p class="footer-script">Johanna</p>
+<p class="footer-zh">幸福策展室 &nbsp;·&nbsp; 藝術花蛋糕</p>
+<div class="footer-line"></div>
+<p class="footer-copy">HAPPINESS CURATED · ALL RIGHTS RESERVED</p>
 </footer>
 
 <script>
-  // ── Intersection Observer for fade-in ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+// Intersection Observer for fade-in
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(e => {
+if (e.isIntersecting) {
+e.target.classList.add('visible');
+observer.unobserve(e.target);
+}
+});
+}, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Stagger children within grid
-  document.querySelectorAll('.rental-grid .rental-card, .services-grid .service-item').forEach((el, i) => {
-    el.style.transitionDelay = (i * 0.12) + 's';
-  });
+// Stagger children within grid
+document.querySelectorAll('.rental-grid .rental-card, .services-grid .service-item').forEach((el, i) => {
+el.style.transitionDelay = (i * 0.12) + 's';
+});
 
-  // ── Mouse drag scroll for desktop (touch devices use native scroll) ──
-  document.querySelectorAll('.photo-strip').forEach(strip => {
-    let isDragging = false;
-    let startX = 0;
-    let scrollStart = 0;
-    const DRAG_THRESHOLD = 5; // px，超過才視為拖曳（避免誤判為點擊）
-    let moved = false;
+// ── Carousel drag-to-scroll ──
+function initCarouselDrag(track) {
+let isDown = false, startX, scrollLeft;
 
-    strip.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      moved = false;
-      startX = e.pageX;
-      scrollStart = strip.scrollLeft;
-      strip.classList.add('is-dragging');
-      e.preventDefault(); // 防止文字選取
-    });
+track.addEventListener('mousedown', e => {
+isDown = true;
+track.classList.add('dragging');
+startX = e.pageX - track.offsetLeft;
+scrollLeft = track.scrollLeft;
+e.preventDefault();
+});
+track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('dragging'); });
+track.addEventListener('mouseup', () => { isDown = false; track.classList.remove('dragging'); });
+track.addEventListener('mousemove', e => {
+if (!isDown) return;
+e.preventDefault();
+const x = e.pageX - track.offsetLeft;
+track.scrollLeft = scrollLeft - (x - startX) * 1.5;
+});
 
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const delta = e.pageX - startX;
-      if (Math.abs(delta) > DRAG_THRESHOLD) moved = true;
-      strip.scrollLeft = scrollStart - delta;
-    });
+// Touch support
+track.addEventListener('touchstart', e => {
+startX = e.touches[0].pageX;
+scrollLeft = track.scrollLeft;
+}, { passive: true });
+track.addEventListener('touchmove', e => {
+const x = e.touches[0].pageX;
+track.scrollLeft = scrollLeft - (x - startX);
+}, { passive: true });
+}
 
-    const stopDrag = () => {
-      if (!isDragging) return;
-      isDragging = false;
-      strip.classList.remove('is-dragging');
-    };
+document.querySelectorAll('.carousel-track').forEach(initCarouselDrag);
 
-    window.addEventListener('mouseup', stopDrag);
-    window.addEventListener('mouseleave', stopDrag);
-  });
+// ── Carousel nav buttons ──
+document.querySelectorAll('.carousel-btn').forEach(btn => {
+btn.addEventListener('click', () => {
+const trackId = btn.getAttribute('data-target');
+const track = document.getElementById(trackId);
+const slideWidth = 284; // 280px + 4px gap
+const scrollAmt = slideWidth * 3;
+if (btn.classList.contains('carousel-prev')) {
+track.scrollBy({ left: -scrollAmt, behavior: 'smooth' });
+} else {
+track.scrollBy({ left: scrollAmt, behavior: 'smooth' });
+}
+});
+});
+</script>
+
+<!-- ══ LINE 客服系統 ══ -->
+<style>
+  #line-fab {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    background: #06C755;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(6,199,85,0.45);
+    z-index: 9000;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  #line-fab:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(6,199,85,0.65); }
+  #line-fab svg { width: 32px; height: 32px; }
+
+  #line-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.72);
+    z-index: 9001;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  #line-modal-overlay.lc-open { display: flex; }
+
+  #line-modal {
+    background: #1e1a18;
+    border: 1px solid rgba(196,168,130,0.25);
+    border-radius: 4px;
+    width: 100%;
+    max-width: 440px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  #line-modal-header {
+    background: #06C755;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  #line-modal-header svg { width: 26px; height: 26px; flex-shrink: 0; }
+  #line-modal-header-text h3 { color: #fff; font-size: 1rem; font-weight: 600; letter-spacing: 0.05em; margin: 0 0 0.15rem; }
+  #line-modal-header-text p { color: rgba(255,255,255,0.85); font-size: 0.72rem; letter-spacing: 0.05em; margin: 0; }
+
+  #line-modal-close {
+    position: absolute; top: 0.9rem; right: 1rem;
+    color: rgba(255,255,255,0.8); cursor: pointer;
+    background: none; border: none; font-size: 1.2rem; line-height: 1; padding: 0.3rem 0.5rem;
+  }
+  #line-modal-close:hover { color: #fff; }
+
+  #line-modal-body { padding: 1.5rem; }
+
+  .lc-intro {
+    font-size: 0.8rem; color: #c9a8a0; line-height: 1.85;
+    letter-spacing: 0.04em; margin-bottom: 1.4rem;
+    border-left: 2px solid #06C755; padding-left: 0.85rem;
+  }
+
+  .lc-field { margin-bottom: 1rem; }
+  .lc-label {
+    display: block; font-size: 0.68rem;
+    letter-spacing: 0.22em; color: #c4a882; margin-bottom: 0.35rem;
+  }
+  .lc-input {
+    width: 100%; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(196,168,130,0.22); border-radius: 2px;
+    padding: 0.6rem 0.9rem; color: #e8e0d8;
+    font-family: 'Noto Serif TC', serif; font-size: 0.82rem;
+    letter-spacing: 0.04em; outline: none; transition: border-color 0.2s;
+  }
+  .lc-input:focus { border-color: rgba(196,168,130,0.55); background: rgba(255,255,255,0.08); }
+  .lc-input::placeholder { color: rgba(255,255,255,0.22); }
+
+  .lc-radio-group { display: flex; flex-direction: column; gap: 0.45rem; margin-top: 0.3rem; }
+  .lc-radio-item {
+    display: flex; align-items: center; gap: 0.6rem;
+    cursor: pointer; font-size: 0.8rem; color: #b0a8a0;
+    letter-spacing: 0.03em; padding: 0.3rem 0.5rem;
+    border-radius: 2px; transition: background 0.15s;
+  }
+  .lc-radio-item:hover { background: rgba(255,255,255,0.04); }
+  .lc-radio-item input[type="radio"] { accent-color: #06C755; }
+
+  #line-submit-btn {
+    width: 100%; background: #06C755; color: #fff;
+    border: none; padding: 0.9rem 1rem;
+    border-radius: 2px; font-family: 'Noto Serif TC', serif;
+    font-size: 0.9rem; letter-spacing: 0.18em;
+    cursor: pointer; margin-top: 1.2rem;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    transition: background 0.2s, transform 0.1s;
+  }
+  #line-submit-btn:hover { background: #05b34f; }
+  #line-submit-btn:active { transform: scale(0.98); }
+  #line-submit-btn svg { width: 18px; height: 18px; }
+
+  .lc-note {
+    font-size: 0.67rem; color: rgba(255,255,255,0.28);
+    text-align: center; margin-top: 0.8rem;
+    letter-spacing: 0.04em; line-height: 1.7;
+  }
+</style>
+
+<!-- 浮動 LINE 按鈕 -->
+<div id="line-fab" onclick="document.getElementById('line-modal-overlay').classList.add('lc-open')" title="LINE 客服諮詢">
+  <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.630 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+  </svg>
+</div>
+
+<!-- LINE 諮詢 Modal -->
+<div id="line-modal-overlay" onclick="if(event.target===this)this.classList.remove('lc-open')">
+  <div id="line-modal">
+    <div id="line-modal-header">
+      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.630 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+      </svg>
+      <div id="line-modal-header-text">
+        <h3>幸福策展室 客服諮詢</h3>
+        <p>LINE 官方帳號：@316lmzzc</p>
+      </div>
+      <button id="line-modal-close" onclick="document.getElementById('line-modal-overlay').classList.remove('lc-open')">✕</button>
+    </div>
+
+    <div id="line-modal-body">
+      <p class="lc-intro">您好！請填寫以下基本資料，填寫完成後點擊按鈕將自動開啟 LINE 並帶入您的資料，讓我們能更快速為您服務。</p>
+
+      <div class="lc-field">
+        <label class="lc-label" for="lc-name">姓名</label>
+        <input class="lc-input" id="lc-name" type="text" placeholder="請輸入您的姓名">
+      </div>
+      <div class="lc-field">
+        <label class="lc-label" for="lc-phone">聯絡電話</label>
+        <input class="lc-input" id="lc-phone" type="tel" placeholder="請輸入您的聯絡電話">
+      </div>
+      <div class="lc-field">
+        <label class="lc-label" for="lc-purpose">場租用途</label>
+        <input class="lc-input" id="lc-purpose" type="text" placeholder="例：生日派對、婚宴、企業活動…">
+      </div>
+      <div class="lc-field">
+        <label class="lc-label" for="lc-date">場租日期</label>
+        <input class="lc-input" id="lc-date" type="date">
+      </div>
+      <div class="lc-field">
+        <label class="lc-label" for="lc-time">場租時段</label>
+        <input class="lc-input" id="lc-time" type="text" placeholder="例：10:00 – 14:00">
+      </div>
+      <div class="lc-field">
+        <label class="lc-label" for="lc-people">預估人數</label>
+        <input class="lc-input" id="lc-people" type="number" placeholder="請輸入預估出席人數" min="1">
+      </div>
+      <div class="lc-field">
+        <label class="lc-label">如何得知「幸福策展室」</label>
+        <div class="lc-radio-group">
+          <label class="lc-radio-item"><input type="radio" name="lc-source" value="1. 網路廣告"> 1. 網路廣告</label>
+          <label class="lc-radio-item"><input type="radio" name="lc-source" value="2. 朋友推薦"> 2. 朋友推薦</label>
+          <label class="lc-radio-item"><input type="radio" name="lc-source" value="3.「幸福策展室」主動聯繫"> 3.「幸福策展室」主動聯繫</label>
+          <label class="lc-radio-item"><input type="radio" name="lc-source" value="4. 路過"> 4. 路過</label>
+          <label class="lc-radio-item"><input type="radio" name="lc-source" value="5. 其他"> 5. 其他</label>
+        </div>
+      </div>
+
+      <button id="line-submit-btn" onclick="lcSubmit()">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.630 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+        前往 LINE 諮詢
+      </button>
+      <p class="lc-note">點擊後將開啟 LINE 並自動帶入您填寫的資料<br>確認資料正確後再送出訊息即可</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function lcSubmit() {
+  var name    = document.getElementById('lc-name').value.trim();
+  var phone   = document.getElementById('lc-phone').value.trim();
+  var purpose = document.getElementById('lc-purpose').value.trim();
+  var date    = document.getElementById('lc-date').value;
+  var time    = document.getElementById('lc-time').value.trim();
+  var people  = document.getElementById('lc-people').value.trim();
+  var srcEl   = document.querySelector('input[name="lc-source"]:checked');
+  var src     = srcEl ? srcEl.value : '（未選擇）';
+
+  if (!name || !phone) {
+    alert('請至少填寫姓名及聯絡電話');
+    return;
+  }
+
+  var msg = '您好，請回覆您的資料\n'
+    + '姓名：' + (name || '（未填）') + '\n'
+    + '聯絡電話：' + (phone || '（未填）') + '\n'
+    + '場租用途：' + (purpose || '（未填）') + '\n'
+    + '場租日期：' + (date || '（未填）') + '\n'
+    + '場租時段：' + (time || '（未填）') + '\n'
+    + '預估人數：' + (people || '（未填）') + '\n'
+    + '如何得知「幸福策展室」：' + src;
+
+  window.open('https://line.me/R/oaMessage/%40316lmzzc/?text=' + encodeURIComponent(msg), '_blank');
+}
 </script>
 </body>
 </html>
